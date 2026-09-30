@@ -7,6 +7,8 @@
 #include "ui/LicenseDialog.h"
 #include "ui/LoginDialog.h"
 #include "ui/MainWindow.h"
+#include "ui/IndustrySelectorDialog.h"
+#include "core/IndustryManager.h"
 
 int main(int argc, char* argv[])
 {
@@ -29,6 +31,17 @@ int main(int argc, char* argv[])
     }
 
     qInfo() << "Database ready at:" << DatabaseManager::instance().databasePath();
+
+    // Show industry selector on first launch
+    if (IndustryManager::instance().isFirstLaunch()) {
+        IndustrySelectorDialog industryDialog;
+        if (industryDialog.exec() != QDialog::Accepted) {
+            return 0;
+        }
+    }
+
+    // Update app title based on industry
+    app.setApplicationName(IndustryManager::instance().label("app_title"));
 
     // Check license first
     if (!LicenseDialog::isLicenseValid()) {

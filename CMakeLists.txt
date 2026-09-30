@@ -15,6 +15,10 @@ endif()
 
 set(SOURCES
     src/main.cpp src/database/DatabaseManager.cpp
+    src/ui/IndustrySelectorDialog.h
+    src/ui/IndustrySelectorDialog.cpp
+    src/core/IndustryManager.h
+    src/core/IndustryManager.cpp
     src/ui/LoginDialog.cpp src/ui/MainWindow.cpp src/ui/DashboardWidget.cpp
     src/ui/GuardWidget.cpp src/ui/GuardDialog.cpp
     src/ui/ClientWidget.cpp src/ui/ClientDialog.cpp

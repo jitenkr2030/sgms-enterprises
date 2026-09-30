@@ -104,6 +104,21 @@ bool DatabaseManager::tableExists(const QString& tableName) const
 
 void DatabaseManager::createTables()
 {
+    // Industry settings table
+    QSqlQuery settingsQuery(m_db);
+    settingsQuery.exec("CREATE TABLE IF NOT EXISTS app_settings ("
+                       "key TEXT PRIMARY KEY,"
+                       "value TEXT"
+                       ")");
+    // License machine tracking (2-PC limit)
+    settingsQuery.exec("CREATE TABLE IF NOT EXISTS license_machines ("
+                       "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                       "license_key TEXT NOT NULL,"
+                       "machine_id TEXT NOT NULL,"
+                       "activated_at TEXT DEFAULT (datetime('now','localtime')),"
+                       "UNIQUE(license_key, machine_id)"
+                       ")");
+
     QStringList statements;
 
     // Users
